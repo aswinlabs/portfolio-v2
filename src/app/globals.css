@@ -1,0 +1,583 @@
+@import "tailwindcss";
+
+@import "tailwindcss";
+
+:root, .theme-classic {
+  --background: #f8f0d8;
+  --foreground: #8B5E3C;
+  --primary: #6B8E23;
+  --assistant-window-bg: #fff8e6;
+  --assistant-panel-bg: #fffdf5;
+  --assistant-panel-text: #2d2118;
+  --assistant-muted-text: #6f5645;
+  --assistant-accent: #6B8E23;
+  --assistant-accent-text: #ffffff;
+  --assistant-border: #8B5E3C;
+  --assistant-input-bg: #fffdf5;
+  --assistant-input-text: #2d2118;
+  --assistant-danger: #b42318;
+  --assistant-user-bg: #f5ead3;
+  --assistant-warning-bg: #fff2cf;
+  --assistant-trace-bg: #f2ead8;
+  --terminal-text: #6B8E23;
+}
+
+.theme-windows95 {
+  --background: #c0c0c0;
+  --foreground: #000000;
+  --primary: #000080;
+  --assistant-window-bg: #d4d4d4;
+  --assistant-panel-bg: #ffffff;
+  --assistant-panel-text: #111111;
+  --assistant-muted-text: #4d4d4d;
+  --assistant-accent: #000080;
+  --assistant-accent-text: #ffffff;
+  --assistant-border: #111111;
+  --assistant-input-bg: #ffffff;
+  --assistant-input-text: #111111;
+  --assistant-danger: #b00020;
+  --assistant-user-bg: #e9e9e9;
+  --assistant-warning-bg: #fff3bf;
+  --assistant-trace-bg: #eeeeee;
+  --terminal-text: #ffffff;
+}
+
+.theme-amber {
+  --background: #000000;
+  --foreground: #ffbf00;
+  --primary: #ff8000;
+  --assistant-window-bg: #050300;
+  --assistant-panel-bg: #0d0800;
+  --assistant-panel-text: #ffe8a3;
+  --assistant-muted-text: #d7a33d;
+  --assistant-accent: #ff8000;
+  --assistant-accent-text: #000000;
+  --assistant-border: #ffbf00;
+  --assistant-input-bg: #000000;
+  --assistant-input-text: #ffe8a3;
+  --assistant-danger: #ff4d2e;
+  --assistant-user-bg: #1c1000;
+  --assistant-warning-bg: #2a1200;
+  --assistant-trace-bg: #150d00;
+  --terminal-text: #ffbf00;
+}
+
+.theme-dos-blue {
+  --background: #0000aa;
+  --foreground: #ffffff;
+  --primary: #55ffff;
+  --assistant-window-bg: #000066;
+  --assistant-panel-bg: #000033;
+  --assistant-panel-text: #ffffff;
+  --assistant-muted-text: #b8ffff;
+  --assistant-accent: #55ffff;
+  --assistant-accent-text: #000033;
+  --assistant-border: #ffffff;
+  --assistant-input-bg: #000033;
+  --assistant-input-text: #ffffff;
+  --assistant-danger: #ff6b6b;
+  --assistant-user-bg: #000088;
+  --assistant-warning-bg: #001a66;
+  --assistant-trace-bg: #000055;
+  --terminal-text: #55ffff;
+}
+
+.theme-matrix {
+  --background: #000000;
+  --foreground: #00ff00;
+  --primary: #009900;
+  --assistant-window-bg: #020402;
+  --assistant-panel-bg: #000000;
+  --assistant-panel-text: #d7ffd7;
+  --assistant-muted-text: #74d874;
+  --assistant-accent: #00ff00;
+  --assistant-accent-text: #001500;
+  --assistant-border: #00ff00;
+  --assistant-input-bg: #000000;
+  --assistant-input-text: #d7ffd7;
+  --assistant-danger: #ff5757;
+  --assistant-user-bg: #061406;
+  --assistant-warning-bg: #101a00;
+  --assistant-trace-bg: #031003;
+  --terminal-text: #00ff00;
+}
+
+.theme-oled {
+  --background: #111111;
+  --foreground: #eeeeee;
+  --primary: #ff4c4c;
+  --assistant-window-bg: #0d0d0d;
+  --assistant-panel-bg: #050505;
+  --assistant-panel-text: #f5f5f5;
+  --assistant-muted-text: #b6b6b6;
+  --assistant-accent: #ff4c4c;
+  --assistant-accent-text: #120000;
+  --assistant-border: #eeeeee;
+  --assistant-input-bg: #050505;
+  --assistant-input-text: #f5f5f5;
+  --assistant-danger: #ff7676;
+  --assistant-user-bg: #181818;
+  --assistant-warning-bg: #211111;
+  --assistant-trace-bg: #121212;
+  --terminal-text: #ff4c4c;
+}
+
+.theme-c64 {
+  --background: #352879;
+  --foreground: #c9bfff;
+  --primary: #fffdea;
+  --assistant-window-bg: #2d2468;
+  --assistant-panel-bg: #18123f;
+  --assistant-panel-text: #fffdea;
+  --assistant-muted-text: #c9bfff;
+  --assistant-accent: #fff36b;
+  --assistant-accent-text: #18123f;
+  --assistant-border: #fffdea;
+  --assistant-input-bg: #18123f;
+  --assistant-input-text: #fffdea;
+  --assistant-danger: #ff8c8c;
+  --assistant-user-bg: #241b55;
+  --assistant-warning-bg: #37275b;
+  --assistant-trace-bg: #21194d;
+  --terminal-text: #fff36b;
+}
+
+.theme-appleii {
+  --background: #000000;
+  --foreground: #FF6A3A;
+  --primary: #4AE029;
+  --assistant-window-bg: #050000;
+  --assistant-panel-bg: #000000;
+  --assistant-panel-text: #ffd0bd;
+  --assistant-muted-text: #ff916e;
+  --assistant-accent: #4AE029;
+  --assistant-accent-text: #001400;
+  --assistant-border: #FF6A3A;
+  --assistant-input-bg: #000000;
+  --assistant-input-text: #ffd0bd;
+  --assistant-danger: #ff3b3b;
+  --assistant-user-bg: #1a0800;
+  --assistant-warning-bg: #251000;
+  --assistant-trace-bg: #120600;
+  --terminal-text: #4AE029;
+}
+
+.theme-gbpocket {
+  --background: #E2F3E4;
+  --foreground: #8BAC0F;
+  --primary: #306230;
+  --assistant-window-bg: #edf8ed;
+  --assistant-panel-bg: #fbfff8;
+  --assistant-panel-text: #1f321f;
+  --assistant-muted-text: #4e6842;
+  --assistant-accent: #306230;
+  --assistant-accent-text: #ffffff;
+  --assistant-border: #306230;
+  --assistant-input-bg: #fbfff8;
+  --assistant-input-text: #1f321f;
+  --assistant-danger: #9f1d1d;
+  --assistant-user-bg: #e2f3e4;
+  --assistant-warning-bg: #eef4ce;
+  --assistant-trace-bg: #e9f5e7;
+  --terminal-text: #8BAC0F;
+}
+
+.theme-peach-vintage {
+  --background: #f8ecee;
+  --foreground: #865858;
+  --primary: #d4a5a5;
+  --assistant-window-bg: #fff5f1;
+  --assistant-panel-bg: #fffdfb;
+  --assistant-panel-text: #442928;
+  --assistant-muted-text: #7d5752;
+  --assistant-accent: #865858;
+  --assistant-accent-text: #ffffff;
+  --assistant-border: #865858;
+  --assistant-input-bg: #fffdfb;
+  --assistant-input-text: #442928;
+  --assistant-danger: #a32020;
+  --assistant-user-bg: #f7e8e1;
+  --assistant-warning-bg: #fff0d6;
+  --assistant-trace-bg: #f5e8e5;
+  --terminal-text: #f7bfa0;
+}
+
+.theme-retro-rose {
+  --background: #ffe6ec;
+  --foreground: #cc4e72;
+  --primary: #ff99b3;
+  --assistant-window-bg: #fff1f5;
+  --assistant-panel-bg: #fffdfd;
+  --assistant-panel-text: #4b1d2a;
+  --assistant-muted-text: #864159;
+  --assistant-accent: #cc4e72;
+  --assistant-accent-text: #ffffff;
+  --assistant-border: #cc4e72;
+  --assistant-input-bg: #fffdfd;
+  --assistant-input-text: #4b1d2a;
+  --assistant-danger: #a20f34;
+  --assistant-user-bg: #ffe6ec;
+  --assistant-warning-bg: #fff0c9;
+  --assistant-trace-bg: #fbe7ed;
+  --terminal-text: #ff99b3;
+}
+
+.theme-sepia-toned {
+  --background: #f5ecd9;
+  --foreground: #5c4324;
+  --primary: #a68c5c;
+  --assistant-window-bg: #fbf0d9;
+  --assistant-panel-bg: #fffaf0;
+  --assistant-panel-text: #312315;
+  --assistant-muted-text: #6f5738;
+  --assistant-accent: #5c4324;
+  --assistant-accent-text: #fffaf0;
+  --assistant-border: #5c4324;
+  --assistant-input-bg: #fffaf0;
+  --assistant-input-text: #312315;
+  --assistant-danger: #9b2418;
+  --assistant-user-bg: #f2e6cf;
+  --assistant-warning-bg: #fff1c4;
+  --assistant-trace-bg: #eee1ca;
+  --terminal-text: #a68c5c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+.layout-panel {
+  @apply flex items-center justify-center py-4 md:py-0 items-start;
+}
+
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.assistant-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--assistant-accent) var(--assistant-panel-bg);
+}
+
+.assistant-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.assistant-scrollbar::-webkit-scrollbar-track {
+  background: var(--assistant-panel-bg);
+  border-left: 1px solid var(--assistant-border);
+}
+
+.assistant-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--assistant-accent);
+  border: 2px solid var(--assistant-panel-bg);
+}
+
+.assistant-trace-card {
+  border: 1px solid var(--assistant-border);
+  background-color: var(--assistant-trace-bg);
+  color: var(--assistant-panel-text);
+  opacity: 0.8;
+  transition: all 0.2s ease-in-out;
+  box-shadow: inset 0 0 18px color-mix(in srgb, var(--assistant-accent) 5%, transparent);
+}
+
+.assistant-trace-card.status-waiting {
+  border-color: var(--assistant-border);
+  background-color: var(--assistant-panel-bg);
+  color: var(--assistant-muted-text);
+  opacity: 0.5;
+}
+
+.assistant-trace-card.status-active {
+  border-color: var(--assistant-accent);
+  background-color: var(--assistant-user-bg);
+  color: var(--assistant-panel-text);
+  opacity: 1;
+}
+
+.assistant-trace-card.status-done {
+  border-color: var(--assistant-border);
+  background-color: var(--assistant-trace-bg);
+  color: var(--assistant-panel-text);
+  opacity: 0.95;
+}
+
+.assistant-trace-card.status-error {
+  border-color: var(--assistant-danger);
+  background-color: var(--assistant-warning-bg);
+  color: var(--assistant-danger);
+  opacity: 1;
+}
+
+.assistant-trace-active {
+  animation: assistantTracePulse 1.1s ease-in-out infinite;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--assistant-accent) 40%, transparent), inset 0 0 8px color-mix(in srgb, var(--assistant-accent) 25%, transparent);
+}
+
+.assistant-trace-error {
+  animation: assistantTraceFault 0.7s steps(2, end) infinite;
+  box-shadow: 0 0 16px rgba(239, 68, 68, 0.18), inset 0 0 14px rgba(239, 68, 68, 0.12);
+}
+
+/* Assistant custom button styles */
+.assistant-btn-primary {
+  background-color: var(--assistant-accent);
+  color: var(--assistant-accent-text);
+  border: 1px solid var(--assistant-border);
+  transition: all 0.15s ease-in-out;
+}
+.assistant-btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.assistant-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.assistant-btn-secondary {
+  background-color: var(--assistant-input-bg);
+  color: var(--assistant-panel-text);
+  border: 1px solid var(--assistant-border);
+  transition: all 0.15s ease-in-out;
+}
+.assistant-btn-secondary:hover:not(:disabled) {
+  background-color: var(--assistant-trace-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.assistant-btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.assistant-quick-prompt {
+  background-color: var(--assistant-trace-bg);
+  color: var(--assistant-panel-text);
+  border: 1px solid var(--assistant-border);
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.assistant-quick-prompt:hover:not(:disabled) {
+  background-color: var(--assistant-accent);
+  color: var(--assistant-accent-text);
+  border-color: var(--assistant-accent);
+  transform: translateY(-1px);
+}
+.assistant-quick-prompt:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Chat Message Bubbles */
+.assistant-msg-user {
+  border: 1px solid var(--assistant-accent);
+  background-color: var(--assistant-user-bg);
+  color: var(--assistant-panel-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.assistant-msg-assistant {
+  border: 1px solid var(--assistant-border);
+  background-color: var(--assistant-trace-bg);
+  color: var(--assistant-panel-text);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.assistant-msg-system {
+  border: 1px solid var(--assistant-danger);
+  background-color: var(--assistant-warning-bg);
+  color: var(--assistant-panel-text);
+}
+
+.assistant-input::placeholder {
+  color: var(--assistant-muted-text);
+  opacity: 0.6;
+}
+
+/* Status dot states */
+.assistant-status-online {
+  background-color: currentColor;
+  animation: assistantStatusPulse 2s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.assistant-status-thinking {
+  background-color: currentColor;
+  animation: assistantStatusBlink 0.5s steps(1, end) infinite;
+  opacity: 1;
+}
+
+@keyframes assistantStatusPulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+@keyframes assistantStatusBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Message fade-in animation */
+.assistant-msg-fadein {
+  animation: assistantMsgFadeIn 0.25s ease-out both;
+}
+
+@keyframes assistantMsgFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Blinking cursor inside typing message */
+.assistant-cursor {
+  display: inline-block;
+  color: var(--assistant-accent);
+  animation: assistantCursorBlink 0.7s steps(1, end) infinite;
+  margin-left: 1px;
+  font-weight: 900;
+}
+
+@keyframes assistantCursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Typing message highlight */
+.assistant-msg-typing {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--assistant-accent) 40%, transparent),
+              0 0 12px color-mix(in srgb, var(--assistant-accent) 15%, transparent);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Thinking progress bar sweep */
+.assistant-thinking-bar {
+  width: 40%;
+  animation: assistantThinkingSweep 1.4s ease-in-out infinite;
+  border-radius: 1px;
+}
+
+@keyframes assistantThinkingSweep {
+  0% { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}
+
+@keyframes assistantTracePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.78;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes assistantTraceFault {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .assistant-trace-active,
+  .assistant-trace-error,
+  .animate-pulse,
+  .party-mode-animation,
+  .assistant-status-online,
+  .assistant-status-thinking,
+  .assistant-msg-fadein,
+  .assistant-cursor,
+  .assistant-thinking-bar {
+    animation: none !important;
+  }
+}
+
+
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+
+
+
+body {
+ cursor: url('data:image/x-icon;base64,AAACAAEAICAAAAAAAACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIwAAAEUAAABVAAAAQAAAACQAAAAWAAAADgAAAAoAAAAGAAAAAwAAAAEAAAABAAAAAQAAAAgAAAAMAAAADwAAAAsAAAAJAAAABgAAAAMAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAWgAAAHkAAABlAAAARwAAACoAAAAaAAAAEQAAAAsAAAAGAAAAAwAAAAIAAAAIAAAAGwAAACQAAAAkAAAAFgAAABAAAAALAAAABgAAAAMAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAABiAAAAiAAAAH4AAABnAAAASAAAACsAAAAbAAAAEQAAAAsAAAAHAAAACwAAABwAAAA+AAAASwAAAEUAAAAqAAAAGgAAABEAAAALAAAABgAAAAMAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADvAAAA/wAAAP8AAACMAAAAigAAAH8AAABoAAAASQAAACsAAAAbAAAAEgAAABIAAAAfAAAAPwAAAGEAAABxAAAAZgAAAEgAAAArAAAAGwAAABEAAAALAAAABgAAAAMAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAD/AAAA/wAAAP8AAACNAAAAigAAAH8AAABoAAAASQAAACsAAAAfAAAAJgAAAEEAAAD/AAAAfAAAAIYAAAB/AAAAZwAAAEgAAAArAAAAGwAAABEAAAALAAAABgAAAAMAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAD/AAAA/wAAAP8AAACNAAAAigAAAH8AAABoAAAASQAAADkAAABGAAAA/wAAAP8AAAD/AAAAjAAAAIoAAAB/AAAAaAAAAEkAAAArAAAAGwAAABEAAAALAAAABgAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAACNAAAAigAAAH8AAABoAAAAXwAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAjQAAAIoAAAB/AAAAaAAAAEkAAAArAAAAGwAAABEAAAALAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAQEBMAAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAACNAAAAigAAAH8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAjQAAAIoAAAB/AAAAaAAAAEkAAAArAAAAGQAAAA4AAAALAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADvAAAA/wAAAP8AAAD//////wAAAP8AAAD/AAAA/wAAAP8AAACNAAAA/wAAAP8AAAD/AAAA//////8AAAD/AAAA/wAAAP8AAAD/AAAAjQAAAIoAAAB/AAAAaAAAAEcAAAApAAAAFAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAD/AAAA/wAAAP///////////wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP////////////////8AAAD/AAAA/wAAAP8AAAD/AAAAjQAAAIoAAAB+AAAAYgAAADsAAAAZAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAD//////////////////////wAAAP8AAAD/AAAA/wAAAP8AAAD///////////////////////////8AAAD/AAAA/wAAAP8AAAD/AAAAjAAAAIYAAABtAAAAQwAAABoAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP///////////////////////////wAAAP8AAAD/AAAA//////////////////////////////////////8AAAD/AAAA/wAAAP8AAAD/AAAAfAAAAF4AAAA1AAAAEwAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAP8AAAD/AAAA/////////////////////////////////wAAAP////////////////////////////////////////////////8AAAD/AAAA/wAAAP8AAAD/AAAAPwAAABwAAAAHAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD/////////////////////////////////////////////////////////////////////////////////AAAA/wAAAP8AAAD/AAAA/wAAAEMAAAAhAAAADAAAAAMAAAABAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAD/AAAA/////////////////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAABMAAAAKQAAABMAAAAIAAAABAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAD///////////////////////////////////////////////////////////////////////////8AAAD/AAAA/wAAAP8AAAD/AAAAZwAAAEAAAAAgAAAAEwAAAAwAAAAGAAAABAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP//////////////////////////////////////////////////////////////////////AAAA/wAAAP8AAAD/AAAA/wAAAIYAAABwAAAATQAAAC0AAAAbAAAAEQAAAAsAAAAJAAAAAAAAAAAAAAAAAAAAzwAAAP8AAAD/AAAA/////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACOAAAAiwAAAIAAAABoAAAASQAAACsAAAAbAAAAEQAAAA4AAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD4/////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACMAAAAiQAAAH8AAABoAAAASQAAACsAAAAaAAAAFQAAAAAAAAAAAAAAAAAAAP8AAAD/AAAA/////////////////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACMAAAAigAAAH8AAABoAAAASAAAACoAAAAeAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAD//////////////////////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACNAAAAigAAAH8AAABnAAAARwAAADQAAAAAAAAAAAEBASAAAAD/AAAA/wAAAP///////////////////////////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACLAAAAiAAAAHwAAABlAAAAVQAAAAAAAAAAAAAA/wAAAP8AAAD/AAAA/////////////////////////////////////////////////////////////////////////////////////////////////wAAAP8AAAD/AAAA/wAAAP8AAACBAAAAfgAAAHEAAABqAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD//////////////////////////////////////////////////////////////////////////////////////wAAAOcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAABjAAAAXwAAAF0AAAAAAAAAAAAAAP8AAAD/AAAA//////////////////////////////////////////////////////////////////////8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAAzAAAAMwAAAAAAAAAAAAAA/wAAAP8AAAD///////////////////////////////////////////8AAAD3AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAADxAAAA/wAAABAAAAAQAAAAAAECAUAAAAD/AAAA/wAAAP////////////////8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAADxAwQDagAAAA4AAAAJAAAABAAAAAIAAAACAAAAAgAAAAIAAAAAAAAA7wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAeQAAAA4AAAAJAAAABQAAAAIAAAACAAAAAgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA0wAAABAAAAALAAAABgAAAAIAAAACAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wECAS4AAAAMAAAACAAAAAIAAAACAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAP8AAAD/AAAA8AECAUwAAAAMAAAACAAAAAQAAAACAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///////////8v////B////wP6//8B8H//AOA//wBAH/4AAA/+AAAH/gAAA/4AAAf+AAAD/AAAB/wAAA/8AAAf/AAAH/gAAA/4AAAP+AAAB/gAAAP4AAAB8AAAAfAAAAHwAAAA8AAAAPAAAD/gAAf/4AB//+AP///h/////////8='), auto;
+ }
+
+ a, 
+ button, 
+ [role="button"], 
+ .clickable,
+ [class*="cursor-pointer"] {
+   cursor: url('data:image/x-icon;base64,AAACAAEAICAQAA0AAgDoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAIAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgICAAQEBAAGBgYADw8PAH+y/wABAQEAAwMDABoaGgAMDAwADg4OAAcHBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFVVVQAAAAAAAAAAAAAAYAVVVVVQAAAAAAAAAAAABwVVVVVVVVBAAAAAAAAAAABVVVVVVVVVMAAAAAAAAAAFVVVVVVVVVQYAAAAAAAAAVVVVVVVVVVVQAAAAAAAAAFVVVVVVVVVVUAAAAAAAAAVVVVVVVVVVVVUAAAAAAApVVVVVVVVVVVVVAAAAAAAAVVVVVVVVVVVVVQAAAAAABVVVVVVVVVVVVVUAAAAAAFVVVVVVVVVVVVVVAAAAAABVVVBVVVVVVVVVVQAAAAAGVVUAVVVVVVVVVVUAAAAAAGVQAFVVVVVVVVVVAAAAAAAGEABVVVVVVVVVVQAAAAAAAAAAVVVVVWVVBVUAAAAAAAAAAFVVUFUFVQVVoAAAAAAAAABVVVBVBVAFUCAAAAAAAAAEVVVQVQVQoAYAAAAAAAAAAFVVUAkAsAAAAAAAAAAAAABVVVAAAAAAAAAAAAAAAAAAVVVQAAAAAAAAAAAAAAAAAFVVUAAAAAAAAAAAAAAAAABVVVYAAAAAAAAAAAAAAAAAVVVQAAAAAAAAAAAAAAAAAFVVUAAAAAAAAAAAAAAAAABVVVAAAAAAAAAAAAAAAAAAVVVQAAAAAAAAAAAAAAAAAAVVUAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAD//gf///gB///gAH//wAA//8AAP/+AAB//AAAf/wAAD/4AAA/8AAAP/AAAD/gAAA/wAAAP8AAAD/AAAA/4QAAP/MAAD//AAA//wAAP/8AAD//AAB//wBP//8B////Af///wH///8B////Af///wH///8B////Af///4H////D//w=='), pointer; 
+ }
+
+
+
+@keyframes progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.party-mode-animation {
+  animation: partyLights 0.5s infinite alternate;
+}
+
+@keyframes partyLights {
+  0% { background-color: #ff0000; }
+  14% { background-color: #ff7f00; }
+  28% { background-color: #ffff00; }
+  42% { background-color: #00ff00; }
+  57% { background-color: #0000ff; }
+  71% { background-color: #4b0082; }
+  85% { background-color: #9400d3; }
+  100% { background-color: #ff0000; }
+}
