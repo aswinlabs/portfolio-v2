@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { detectUnsafeCommand, retrieveAswinContext } from "@/lib/aswinKnowledge";
+
+export const dynamic = "force-dynamic";
 import { 
   BASE_PERSONALITY, 
   MOOD_DIRECTIVES,
