@@ -100,10 +100,7 @@ export async function POST(request: NextRequest) {
 
   const runtimeState = body?.runtimeState;
   const mood = typeof runtimeState?.mood === "string" ? runtimeState.mood.trim() : "sleep-deprived";
-  const messageCount = typeof runtimeState?.messageCount === "number" ? runtimeState.messageCount : 0;
   const patience = typeof runtimeState?.patience === "number" ? runtimeState.patience : 10;
-  const unpromptedObservation = typeof runtimeState?.unpromptedObservation === "string" ? runtimeState.unpromptedObservation.trim() : "";
-  const fakeSystemEvent = typeof runtimeState?.fakeSystemEvent === "string" ? runtimeState.fakeSystemEvent.trim() : "";
 
   if (!query) {
     return NextResponse.json({ error: "Empty assistant query." }, { status: 400 });

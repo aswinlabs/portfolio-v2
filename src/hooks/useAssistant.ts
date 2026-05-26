@@ -216,7 +216,7 @@ const getRandomMoodWeighted = (): Mood => {
   ]);
 };
 
-const injectMicroRandomness = (text: string, _state: RuntimeState): string => {
+const injectMicroRandomness = (text: string): string => {
   // No client-side text injection — the LLM response is used as-is.
   // Previous versions appended random jargon ("sass levels approaching critical limits",
   // "[system event]", etc.) which added noise without adding character.
@@ -834,7 +834,7 @@ export const useAssistant = ({
       const rawAnswer = data.answer;
       
       // 3. Inject client-side micro-randomness to the answer
-      answer = injectMicroRandomness(rawAnswer, nextState);
+      answer = injectMicroRandomness(rawAnswer);
     } catch (error) {
       console.error("Assistant API failed:", error);
       answer = "MODEL CORE UNREACHABLE\n======================\n\nLooks like the API is taking a break.\nCheck OPENROUTER_API_KEY, free-tier limits, or try again in a moment.\n\nLocal memory shell is still operational though — ask me something simpler.";
