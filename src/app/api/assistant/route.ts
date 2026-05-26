@@ -5,9 +5,6 @@ export const dynamic = "force-dynamic";
 import { 
   BASE_PERSONALITY, 
   MOOD_DIRECTIVES,
-  INTERNAL_THOUGHT_LEAKS,
-  RECURRING_JOKES,
-  FAILED_SELF_CORRECTIONS,
   SILENT_RESPONSES,
   RESPONSE_STRATEGIES,
   OFF_TOPIC_PATTERNS,
@@ -244,70 +241,14 @@ export async function POST(request: NextRequest) {
     composedSystemInstructions.push(`=== MEMORY SCARS ACTIVE ===\n${scarsInstructions.join("\n")}`);
   }
 
-  // 7. SHAPE FORMATTING
-  const visualStyles = [
-    `STATUS REPORT\n=============`,
-    `[ memory fragment loaded ]`,
-    `>> recruiter mode active`,
-    `filesystem note:`,
-    `system status:`
-  ];
-  const chosenHeader = visualStyles[Math.floor(Math.random() * visualStyles.length)];
-  composedSystemInstructions.push(`=== RESPONSE SHAPE ===\n- You must prefix your response with exactly this visual layout block header (do not generate any other headers): "${chosenHeader}"`);
-
-  // 8. CHAOS RANDOMNESS GATING (Implements persistent character)
-  const chaosFactor =
-    mood === "chaotic" ? 0.85 :
-    mood === "glitching" ? 0.65 :
-    mood === "sleep-deprived" ? 0.40 :
-    mood === "overconfident" ? 0.35 :
-    0.20;
-
-  const dynamicLoreDirectives: string[] = [];
-
-  // Internal thought leak
-  if (Math.random() < chaosFactor) {
-    const leak = INTERNAL_THOUGHT_LEAKS[Math.floor(Math.random() * INTERNAL_THOUGHT_LEAKS.length)];
-    dynamicLoreDirectives.push(`- Leak this exact internal thought dynamically inside your response: "thinking... ${leak}"`);
-  }
-
-  // Recurring joke
-  if (Math.random() < chaosFactor * 0.8) {
-    const joke = RECURRING_JOKES[Math.floor(Math.random() * RECURRING_JOKES.length)];
-    dynamicLoreDirectives.push(`- Work in a brief, recurring database joke reference to: ${joke}`);
-  }
-
-  // Failed self-correction
-  if (Math.random() < chaosFactor * 0.7) {
-    const correction = FAILED_SELF_CORRECTIONS[Math.floor(Math.random() * FAILED_SELF_CORRECTIONS.length)];
-    dynamicLoreDirectives.push(`- Execute a failed self-correction: start expressing "${correction.target}" then cut yourself off with an abrupt line (like "ugh. that sounded HR-generated." or "actually, let's look at real data.") and state the correction instead: "${correction.correction}"`);
-  }
-
-  if (dynamicLoreDirectives.length > 0) {
-    composedSystemInstructions.push(`=== BEHAVIOR DATA CONTROLS ===\n${dynamicLoreDirectives.join("\n")}`);
-  }
-
-  // Self-Aware System Fatigue
-  if (messageCount > 6) {
-    composedSystemInstructions.push(
-      `=== SYSTEM FATIGUE ===\n- Express mild exhaustion referring to the fact that you have explained this lore ${messageCount} times.`
-    );
-  }
 
   const finalSystemPrompt = composedSystemInstructions.join("\n\n");
 
-  const observationSystemPrompt = unpromptedObservation
-    ? `DYNAMICS ALERT - Optional Observation:\nYou may choose to inject this side comment unprompted inside your response (or at the end) if it fits the flow naturally to appear organic and unpredictable:\n"${unpromptedObservation}"`
-    : "";
-
-  const eventSystemPrompt = fakeSystemEvent
-    ? `DYNAMICS ALERT - Optional System Event:\nYou may choose to prefix or append this fake ambient OS status event block to add terminal realism if appropriate:\n"${fakeSystemEvent}"`
-    : "";
 
   const maxTokens =
-    strategy === "recruiter" ? 320 :
+    strategy === "recruiter" ? 300 :
     strategy === "technical" ? 280 :
-    180;
+    220;
 
   let response: Response;
   let responseModel = "llama-3.1-8b-instant";
@@ -315,8 +256,6 @@ export async function POST(request: NextRequest) {
   const constructMessages = () => [
     { role: "system", content: finalSystemPrompt },
     { role: "system", content: `Current assistant mode: ${assistantMode}` },
-    ...(observationSystemPrompt ? [{ role: "system", content: observationSystemPrompt }] : []),
-    ...(eventSystemPrompt ? [{ role: "system", content: eventSystemPrompt }] : []),
     { role: "system", content: `Retrieved Aswin context:\n${retrievedContext}` },
     ...history,
     { role: "user", content: query },

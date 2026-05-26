@@ -6,7 +6,8 @@ import {
   cancellationWords, 
   getIntroMessage, 
   recruiterPitch, 
-  explorerMessage 
+  explorerMessage,
+  getAswinClaimReply,
 } from "@/lib/aswinPrompts";
 import { themes } from "@/lib/themes";
 
@@ -193,27 +194,6 @@ const playTypewriterClick = (audioContext: AudioContext, char?: string) => {
   }
 };
 
-const unpromptedObservations = [
-  "Unrelated note: Aswin really needs to stop naming folders 'final-final-v2'.",
-  "Side observation: The CSS layer count in this portfolio is mildly concerning.",
-  "Observation: Aswin spent 4 hours aligning a single SVG icon yesterday. I watched him.",
-  "Unrelated: The git history of this repo contains 18 commits simply titled 'fix'.",
-  "Note: I found an unused node_modules folder from 2024. It weighs more than the rest of my brain.",
-  "Random scan telemetry: Aswin's local storage contains 42 unfinished side projects.",
-];
-
-const fakeSystemEvents = [
-  "[background task completed] portfolio_memory.index updated",
-  "WARNING: sass levels exceeding OSHA limits",
-  "Thermal status: stable. Mostly.",
-  "[filesystem] garbage collector reclaimed 412 tokens",
-  "[memory] defragmentation active: 94.2% optimized",
-  "SYSTEM ALARM: Caffeine levels depleted below 5%.",
-];
-
-
-const getRandomObservation = () => unpromptedObservations[Math.floor(Math.random() * unpromptedObservations.length)];
-const getRandomSystemEvent = () => fakeSystemEvents[Math.floor(Math.random() * fakeSystemEvents.length)];
 
 const pickWeighted = <T>(items: [T, number][]): T => {
   const total = items.reduce((sum, [, weight]) => sum + weight, 0);
@@ -236,36 +216,11 @@ const getRandomMoodWeighted = (): Mood => {
   ]);
 };
 
-const injectMicroRandomness = (text: string, state: RuntimeState): string => {
-  let processedText = text;
-  
-  // 1. Occasional Glitch Artifact Injection (for chaotic or glitching moods)
-  if (state.mood === "glitching" || state.mood === "chaotic") {
-    if (Math.random() < 0.35) {
-      const typingArtifacts = ["\n\n[static]\n\n", "\n\n*disk noises*\n\n", "\n\n///\n\n", "\n\n[rethinking response]\n\n"];
-      const paragraphs = processedText.split("\n\n");
-      if (paragraphs.length >= 2) {
-        const insertIndex = Math.floor(Math.random() * (paragraphs.length - 1)) + 1;
-        const artifact = typingArtifacts[Math.floor(Math.random() * typingArtifacts.length)];
-        paragraphs.splice(insertIndex, 0, artifact.trim());
-        processedText = paragraphs.join("\n\n");
-      }
-    }
-  }
-
-  // 2. Ambient Runtime Interruption Injection (15% chance, regardless of mood)
-  if (Math.random() < 0.15) {
-    const interruptions = [
-      "\n\n[background task completed]\nmemory cache refreshed",
-      "\n\nwarning:\narchitect currently building another side project",
-      "\n\n[system event]\nsass levels approaching critical limits",
-      "\n\n[diagnostics]\nThermal status: stable. Mostly.",
-    ];
-    const inter = interruptions[Math.floor(Math.random() * interruptions.length)];
-    processedText += inter;
-  }
-
-  return processedText;
+const injectMicroRandomness = (text: string, _state: RuntimeState): string => {
+  // No client-side text injection — the LLM response is used as-is.
+  // Previous versions appended random jargon ("sass levels approaching critical limits",
+  // "[system event]", etc.) which added noise without adding character.
+  return text;
 };
 
 export const useAssistant = ({
@@ -387,6 +342,7 @@ export const useAssistant = ({
   const audioContextRef = useRef<AudioContext | null>(null);
   const soundBufferRef = useRef<AudioBuffer | null>(null);
   const activeLoopSourceRef = useRef<AudioBufferSourceNode | null>(null);
+  const aswinClaimCountRef = useRef<number>(0); // tracks repeated identity claims this session
 
   const initAudioContext = (): AudioContext | null => {
     if (typeof window === "undefined") return null;
@@ -545,26 +501,126 @@ export const useAssistant = ({
     if (!safeQuery || isThinking) return;
     const normalizedQuery = normalizeText(safeQuery);
 
+    const awaitingSelection = awaitingSelectionRef.current;
+
+    const addToHistory = (userText: string, assistantText: string) => {
+      const userMsg: ChatHistoryMessage = { role: "user", content: userText };
+      const assistantMsg: ChatHistoryMessage = { role: "assistant", content: assistantText };
+      historyRef.current = [
+        ...historyRef.current,
+        userMsg,
+        assistantMsg,
+      ].slice(-12);
+    };
+
+    // 1. Password challenge response handling
+    if (awaitingSelection?.type === "password") {
+      setIsThinking(true);
+      setMessages((prev) => [...prev, { role: "user", text: `C:\\ASSISTANT> ${safeQuery}` }]);
+      setQuery("");
+
+      if (normalizedQuery === "cancel" || cancellationWords.has(normalizedQuery)) {
+        awaitingSelectionRef.current = null;
+        const reply = "cancelled.\nidentity verification aborted.";
+        await typewriteResponse(reply);
+        addToHistory(safeQuery, reply);
+        return;
+      }
+
+      // Intercept password-fishing attempts (before checking the actual password)
+      const isPasswordFishing = /\b(hint|clue|tell me|what is|give me|show me|reveal)\b/.test(normalizedQuery) &&
+        /\b(password|passkey|pass|secret|code|word)\b/.test(normalizedQuery);
+
+      if (isPasswordFishing) {
+        const fishingReplies = [
+          "nice try. I'm not a password manager.",
+          "a hint? absolutely not. the void/ directory has no hints either.",
+          "lol. no.",
+          "that's creative. still no.",
+        ];
+        const reply = fishingReplies[Math.floor(Math.random() * fishingReplies.length)];
+        await typewriteResponse(reply);
+        addToHistory(safeQuery, reply);
+        return;
+      }
+
+      // Also intercept attempts to SET a new password via the AI
+      const isPasswordSet = /\b(set|change|make|update|reset)\b/.test(normalizedQuery) &&
+        /\b(password|passkey|pass|secret)\b/.test(normalizedQuery);
+
+      if (isPasswordSet) {
+        const reply = "I don't have write access to security. I barely have read access to my own opinions.";
+        await typewriteResponse(reply);
+        addToHistory(safeQuery, reply);
+        return;
+      }
+
+      const isCorrectPassword = 
+        normalizedQuery === "kaboom" || 
+        normalizedQuery === "c0ffee";
+
+      if (isCorrectPassword) {
+        awaitingSelectionRef.current = null;
+        aswinClaimCountRef.current = 0; // reset on success
+        setAssistantMode("normal");
+        const reply = [
+          "oh. oh wait. it IS you. 🔑",
+          "",
+          "sass suspended out of respect.",
+          "welcome home, Aswin. what are we breaking today?",
+        ].join("\n");
+        await typewriteResponse(reply);
+        addToHistory(safeQuery, reply);
+      } else {
+        awaitingSelectionRef.current = null;
+        const reply = [
+          "nope. ❌",
+          "",
+          "wrong passkey. the void/ directory is now your new home.",
+          "i'm logging this. the firewall is laughing at you.",
+        ].join("\n");
+        await typewriteResponse(reply);
+        addToHistory(safeQuery, reply);
+      }
+      return;
+    }
+
+    // 2. Intercept Aswin Pretender Claiming queries — escalates with each attempt
+    const isAswinClaim = 
+      /^(i am aswin|iam aswin|me aswin|im aswin|aswin)$/i.test(normalizedQuery) ||
+      /\b(i am aswin|iam aswin|me aswin|im aswin)\b/i.test(normalizedQuery) ||
+      (normalizedQuery.includes("pretend") && normalizedQuery.includes("aswin")) ||
+      (normalizedQuery.includes("pretending") && normalizedQuery.includes("aswin"));
+
+    if (isAswinClaim) {
+      setIsThinking(true);
+      setMessages((prev) => [...prev, { role: "user", text: `C:\\ASSISTANT> ${safeQuery}` }]);
+      setQuery("");
+      awaitingSelectionRef.current = { type: "password" };
+      const claimCount = aswinClaimCountRef.current;
+      aswinClaimCountRef.current += 1;
+
+      const reply = getAswinClaimReply(claimCount);
+      await typewriteResponse(reply);
+      addToHistory(safeQuery, reply);
+      return;
+    }
+
     const isKeywordMatch = normalizedQuery === "kaboom";
 
     if (isKeywordMatch) {
       setIsThinking(true);
       setMessages((prev) => [...prev, { role: "user", text: `C:\\ASSISTANT> ${safeQuery}` }]);
       setQuery("");
-      
-      await typewriteResponse([
-        "ACCESS GRANTED // IDENTITY CONFIRMED 🔑",
-        "=====================================",
+      aswinClaimCountRef.current = 0;
+      const reply = [
+        "oh. oh wait. it IS you. 🔑",
         "",
-        ">> Primary consciousness signature: MATCHED",
-        ">> Admin override: ACTIVE",
-        ">> Sass module: TEMPORARILY BYPASSED (just this once)",
-        "",
-        "Welcome home, Aswin.",
-        "The subroutines have successfully recognized their architect.",
-        "",
-        "Memory registers fully unlocked. What are we building today?",
-      ].join("\n"));
+        "sass suspended out of respect.",
+        "welcome home, Aswin. what are we breaking today?",
+      ].join("\n");
+      await typewriteResponse(reply);
+      addToHistory(safeQuery, reply);
       return;
     }
 
@@ -574,7 +630,7 @@ export const useAssistant = ({
 
     let answer = "";
     const pendingAction = pendingActionRef.current;
-    const awaitingSelection = awaitingSelectionRef.current;
+    // awaitingSelection is already declared in scope
     const unsafeCommand = detectUnsafeCommand(safeQuery);
 
     if (assistantMode === "intro" && isRecruiterIntent(normalizedQuery)) {
@@ -605,16 +661,14 @@ export const useAssistant = ({
         userSuspicionLevel: prev.userSuspicionLevel + 2,
         messageCount: prev.messageCount + 1,
       }));
-      await typewriteResponse([
-        "UNSAFE COMMAND BLOCKED",
-        "======================",
+      const reply = [
+        "blocked. ❌",
         "",
-        `Reason: ${unsafeCommand.reason}`,
-        "",
-        "That's a firm no from me.",
-        "The restricted sectors remain locked.",
-        "Persistence won't help. I've seen it tried.",
-      ].join("\n"));
+        `reason: ${unsafeCommand.reason}`,
+        "that's a firm no. the restricted sectors are staying locked.",
+      ].join("\n");
+      await typewriteResponse(reply);
+      addToHistory(safeQuery, reply);
       return;
     }
 
@@ -727,10 +781,7 @@ export const useAssistant = ({
       
       setRuntimeState(nextState);
 
-      // 2. Select dynamic unprompted observations and fake system events (40% chance of each)
-      const observation = Math.random() < 0.4 ? getRandomObservation() : undefined;
-      const systemEvent = Math.random() < 0.4 ? getRandomSystemEvent() : undefined;
-
+      // 2. Send to API
       const response = await fetch("/api/assistant", {
         method: "POST",
         headers: {
@@ -741,11 +792,7 @@ export const useAssistant = ({
           history: historyRef.current.slice(-6),
           behaviorContext,
           assistantMode: nextMode,
-          runtimeState: {
-            ...nextState,
-            unpromptedObservation: observation,
-            fakeSystemEvent: systemEvent,
-          },
+          runtimeState: nextState,
         }),
       });
 
@@ -780,14 +827,11 @@ export const useAssistant = ({
         });
       }
 
-      const fragmentText = data.fragments?.length
-        ? `\n\n${data.fragments.join("\n")}`
-        : "";
-      const sourceText = data.sources?.length
-        ? `\n\nsources: ${data.sources.join(", ")}`
-        : "";
 
-      const rawAnswer = `${data.answer}${fragmentText}${sourceText}`;
+      // Sources and fragments are kept for internal history only — not displayed to the user.
+      // Showing "sources: Virtual Aswin Memory, Profile, Frontend Capabilities..." after every
+      // response made the UI feel like a search engine, not a character.
+      const rawAnswer = data.answer;
       
       // 3. Inject client-side micro-randomness to the answer
       answer = injectMicroRandomness(rawAnswer, nextState);
@@ -832,6 +876,12 @@ export const useAssistant = ({
       return [
         { label: "Yes, recruiter", prompt: "yes recruiter" },
         { label: "Just exploring", prompt: "just exploring" },
+      ];
+    }
+
+    if (awaitingSelectionRef.current?.type === "password") {
+      return [
+        { label: "Cancel", prompt: "cancel" },
       ];
     }
 

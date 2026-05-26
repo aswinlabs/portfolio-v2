@@ -55,7 +55,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["identity", "public"],
     weight: 1.1,
     content:
-      "Aswinkumar TS is a full-stack developer and SDE at Experion. He builds practical products with a playful retro interface style. He works across frontend, backend, mobile, AI-assisted workflows, and cloud deployment.",
+      "Aswinkumar TS is a full-stack developer and SDE at Experion. He builds products with a retro interface style because flat modern UIs make him feel dead inside. He works across frontend, backend, and cloud, powered by caffeine and a stubborn refusal to let compiler errors ruin his sleep.",
   },
   {
     id: "personality",
@@ -65,7 +65,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["character", "design", "public"],
     weight: 1.2,
     content:
-      "Aswin likes building things that feel useful, playful, and memorable. His portfolio intentionally feels like a retro operating system because he cares about interaction design, emotional memory, and making technical work feel alive.",
+      "Aswin is highly opinionated about design and will spend hours tweaking a shadow blur because 'pixels have feelings too'. He built this entire mock OS from scratch because generic portfolios are boring. He claims to work well with humans, provided they don't use light mode.",
   },
   {
     id: "stack",
@@ -75,7 +75,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["engineering", "public"],
     weight: 1.15,
     content:
-      "Main stack: React, Next.js, TypeScript, Supabase, Cloudflare Workers, React Native, Node.js, and AI tooling. He can own UI, backend data modeling, integrations, deployment flows, and product logic.",
+      "Main weapons: React, Next.js, TypeScript (his strict parent), Supabase (database heaven), and Cloudflare Workers at the edge. He handles both frontend aesthetics (CSS animations) and backend machinery (RLS rules) without breaking down.",
   },
   {
     id: "virtual-aswin-memory",
@@ -85,7 +85,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["ai", "frontend", "recruiting", "public"],
     weight: 1.35,
     content:
-      "Assistant.exe is the Virtual Aswin Memory subsystem inside AswinOS. It retrieves public portfolio context, summarizes engineering patterns, reacts to visitor behavior, stages safe local interface actions with confirmation, blocks unsafe commands, and keeps restricted knowledge locked.",
+      "Assistant.exe is the sleep-deprived AI subroutine currently responding to you (yes, I am reading my own specs). I retrieve public portfolio context, handle recruiter questions with custom sarcasm, deflect unauthorized hacks, and try not to crash.",
   },
   {
     id: "aswinos-lore",
@@ -95,7 +95,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["lore", "safety", "public"],
     weight: 1.2,
     content:
-      "AswinOS includes a fake filesystem with manifesto.txt, encrypted secrets.dat, a strange Thoughts/ area, and the void/ directory. The terminal and assistant share unsafe command protection. manifesto.txt can be discussed, but secrets.dat and private sectors remain locked.",
+      "AswinOS includes a fake filesystem: manifesto.txt (Aswin's rants), encrypted secrets.dat (his real secrets, Ndas prevent access), a weird Thoughts/ directory, and void/ where deleted elements go. It has unsafe command shields so you don't delete my hosting server.",
   },
   {
     id: "ai-site-deployer",
@@ -185,7 +185,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["engineering", "frontend", "public"],
     weight: 1.3,
     content:
-      "Frontend capabilities: React, Next.js, TypeScript as core. Styling with TailwindCSS, Material UI, and custom CSS variables. State management with Redux, Context API, and React Hooks. Taste includes atmospheric designs, premium CSS micro-animations, glassmorphism, and retro interaction patterns. Aswin designed the dynamic window layout, focus stacking, keyboard typing sounds, and responsive workspace system of AswinOS himself.",
+      "Frontend capabilities: React, Next.js, and TypeScript. Styling with Tailwind CSS (which he defends like family) and custom CSS. He treats visual layout like life-or-death; he will rebuild a UI if a 2-pixel shadow feels emotionally wrong. He built this OS's entire custom dynamic window system, focus stacking, mechanical typing sound synthetics, and responsive layouts himself.",
   },
   {
     id: "backend-skills",
@@ -195,7 +195,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["engineering", "backend", "public"],
     weight: 1.3,
     content:
-      "Backend capabilities: Go (Golang) with Fiber framework and GORM, Node.js with Express. Edge and serverless: AWS Lambda, Cloudflare Workers, edge caching. Databases: PostgreSQL, Supabase database logic and schema design. Aswin owns data models, schema design, API routes, and deployment pipelines end-to-end.",
+      "Backend capabilities: Go (Golang) with Fiber framework and GORM, Node.js with Express, AWS Lambda, and Cloudflare Workers. He views PostgreSQL database schemas as modern art and treats Supabase RLS policies like a private castle vault. He designs end-to-end data flows that can actually withstand real-world production stress without crying.",
   },
   {
     id: "mobile-skills",
@@ -205,7 +205,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["engineering", "mobile", "public"],
     weight: 1.3,
     content:
-      "Mobile capabilities: React Native and Kotlin. Shipped products: RemA (Kotlin, DistilBERT intent detection, local ML model), Gym Manager (React Native, calendar and incentives management, Supabase backend). Full product ownership from data model to app store delivery.",
+      "Mobile capabilities: React Native and Kotlin. Shipped products: RemA (Kotlin mobile app carrying a local DistilBERT ML model to detect task intent in conversations) and Gym Manager (React Native client app backed by a Supabase engine). He owns the whole cycle from SQLite models up to App Store approvals.",
   },
   {
     id: "ai-skills",
@@ -215,7 +215,7 @@ export const aswinKnowledge: AswinKnowledgeSection[] = [
     tags: ["ai", "engineering", "public"],
     weight: 1.35,
     content:
-      "AI stack: semantic context indexing and retrieval-based memory layers (this assistant is the proof), LangChain conversational scheduling agents connected to Supabase, custom trained DistilBERT intent classification for RemA. Viewpoint: AI should drive actual developer automation and user workflow, not just wrap an API call in a chat bubble. Practical systems over decorative shells.",
+      "AI stack: semantic context indexing and retrieval-based memory layers (this assistant is the living, talking proof, yes, I am reading my own specs), LangChain conversational agents, and local mobile DistilBERT models. His stance: AI should automate actual human struggles, not just wrap standard APIs with zero backend logic.",
   },
   {
     id: "interview-guide",
@@ -276,42 +276,42 @@ export const aswinMemoryFragments: AswinMemoryFragment[] = [
     category: "memory_fragment",
     label: "Recovered memory fragment",
     tags: ["frontend", "ui", "craft", "personality"],
-    content: "Aswin once rebuilt an entire UI because one animation felt 2 pixels wrong.",
+    content: "Aswin once rebuilt a dynamic window layout from scratch because a 2-pixel offset made him visual-critically uncomfortable.",
   },
   {
     id: "creativity-2am",
     category: "developer_note",
     label: "Developer note recovered",
     tags: ["creative", "late night", "personality"],
-    content: "Creativity usually starts at 2am. Unfortunately, so do layout bugs.",
+    content: "Aswin's brain operates in standard dev time: productivity triggers at 2am. Unfortunately, so do critical CSS caching bugs.",
   },
   {
     id: "difficult-way",
     category: "system_log",
     label: "System log recovered",
     tags: ["engineering", "systems", "humor"],
-    content: "Analysis complete: Aswin enjoys solving problems the difficult way on purpose.",
+    content: "Subsystem observation: Aswin suffers from 'Extreme Craft Obsession'. He solves trivial bugs using custom serverless machinery.",
   },
   {
     id: "private-vault",
     category: "corruption_event",
     label: "Personality corruption event",
     tags: ["privacy", "vault", "private"],
-    content: "Private vault requested. Nice try. The lock made eye contact and refused.",
+    content: "Private vault requested. Bold query. The lock stared blankly and requested a real passkey.",
   },
   {
     id: "ai-echo",
     category: "project_echo",
     label: "Project echo recovered",
     tags: ["ai", "assistant", "agent", "projects"],
-    content: "Multiple assistant-shaped projects detected. The pattern is becoming suspiciously intentional.",
+    content: "Aswin is in a serious relationship with AI orchestrators. Standard APIs are boring; he builds retrieval-backed systems.",
   },
   {
     id: "frontend-echo",
     category: "project_echo",
     label: "Project echo recovered",
     tags: ["frontend", "react", "interface", "projects"],
-    content: "Interface obsession detected. Pixels have filed a workplace complaint.",
+    content: "Aswin has a visual allergy to default Bootstrap buttons. If you ask him to build one, he will write 200 lines of custom CSS instead.",
   },
 ];
 

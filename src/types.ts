@@ -149,9 +149,9 @@ export type PendingAssistantAction = {
   value?: string;
 };
 
-export type AwaitingAssistantSelection = {
-  type: "theme";
-};
+export type AwaitingAssistantSelection =
+  | { type: "theme" }
+  | { type: "password" };
 
 export type AssistantMode = "intro" | "recruiter" | "normal";
 
