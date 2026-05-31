@@ -1,19 +1,42 @@
-# Aswin's Portfolio (AswinOS)
+# AswinOS
 
-This is Aswin's developer portfolio, styled as a simulated, retro-themed "unstable operating system" (AswinOS) built with Next.js, featuring an interactive AI assistant behavioral engine.
+> Warning: System stability not guaranteed.
+
+AswinOS is a retro-futuristic developer portfolio built with Next.js, presented as an unstable operating system running on the edge of collapse.
+
+Behind the glitches, terminal windows, and strange system behavior is a portfolio showcasing my work, projects, and experiments in software engineering, AI, and interactive experiences.
+
+## Features
+
+- Simulated operating system environment
+- AI-powered behavioral engine
+- Interactive terminal-style experiences
+- Project and portfolio showcase
+- Retro-inspired visual design
+- Built with Next.js and TypeScript
+
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
- 
+Open:
+
+```text
+http://localhost:3000
+```
+
+## Why?
+
+Traditional portfolios tell visitors who you are.
+
+AswinOS lets them explore.
+
+The project is an experiment in blending software engineering, storytelling, AI, and interface design into a single interactive experience.
+
+---
+
+Status: Operational (mostly)
+<img width="1706" height="992" alt="image" src="https://github.com/user-attachments/assets/1721e5e9-fbf8-4f7f-bbaa-f3651d2739c7" />
