@@ -25,6 +25,7 @@ import StartMenu from "@/components/StartMenu";
 import Confetti from 'react-confetti';
 import clsx from "clsx";
 import { classifyProjectInterest, createDefaultAssistantBehaviorContext } from "@/lib/aswinKnowledge";
+import SpideyEasterEgg from "@/components/SpideyEasterEgg";
 
 export type ViewStyle = "grid" | "list";
 
@@ -441,6 +442,7 @@ export default function Home() {
     }`}>
       {showBlueScreen && <BlueScreen onClose={() => setShowBlueScreen(false)} />}
       {partyMode && <Confetti recycle={false} numberOfPieces={200} />}
+      <SpideyEasterEgg />
 
       <div className="flex-1 overflow-hidden flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-13 divide-y md:divide-y-0 md:divide-x divide-dashed divide-gray-500 p-4 h-[calc(100dvh-48px)] overflow-auto">

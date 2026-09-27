@@ -78,16 +78,16 @@ export const rootItems: DesktopItemType[] = [
       },
       {
         id: 35,
-        name: "AI Site Deployer",
+        name: "Property Deployer",
         type: "text",
         image: "/images/txt.webp",
         renderItem: "ProjectViewer",
         parentId: 3,
         description: {
-          techStack: ["Next.js", "AI PDF Parsing", "AI SEO Generation", "Cloudflare Workers", "Supabase", "Template Platform"],
-          description: "Built a Next.js admin platform that uses AI to parse PDFs, generate SEO fields automatically, collect guided site details, and deploy template-based websites in seconds.",
-          role: "Owned the admin workflow, Supabase integration, AI-assisted site data flow, and edge deployment pipeline.",
-          impact: "Reduced manual setup work by tailoring website content and SEO data from PDFs plus guided pre-deployment answers.",
+          techStack: ["Astro", "Node.js", "Next.js", "GitHub API", "Cloudflare Pages", "LLM Extraction"],
+          description: "Built an automated single-page deployment platform for real estate properties. Users paste raw, unorganized text about a property into an admin dashboard; the system parses the text with an LLM, extracts structured specs (pricing, amenities, location, contact), and compiles it into an optimized Astro template. The platform commits the code via GitHub API and triggers an automated Cloudflare Pages deployment pipeline within seconds.",
+          role: "Architected the admin dashboard, extraction schema, automated GitHub commit flow, and Cloudflare CI/CD pipeline.",
+          impact: "Eliminated manual site creation by turning unstructured property notes into live, edge-hosted landing pages in under a minute.",
           source: "Private repository",
           demo: "Available on request"
         }

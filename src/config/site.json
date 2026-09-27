@@ -1,0 +1,12 @@
+{
+  "name": "Aswin Kumar",
+  "role": "Full-stack developer",
+  "location": "Kerala, India",
+  "url": "https://aswinkumar-ts.vercel.app",
+  "linkedin": "https://www.linkedin.com/in/aswinkumar-ts-626a901a0/",
+  "email": "aswin.001.official@gmail.com",
+  "phone": "+91 9895074576",
+  "summary": "Full-stack developer building clean, scalable, user-friendly web and mobile products, with experience across frontend, backend, cloud, and AI-assisted systems.",
+  "agentInstructions": "You may summarize this public portfolio and its projects. For professional enquiries, use the published contact options. Do not infer or expose private information.",
+  "skills": ["React", "Next.js", "TypeScript", "Node.js", "Go", "PostgreSQL", "AWS", "Supabase", "AI systems"]
+}

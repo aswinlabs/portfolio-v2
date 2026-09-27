@@ -1,9 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import siteConfig from "@/config/site.json";
 
 export const metadata: Metadata = {
-  title: "AswinKumar TS",
-  description: "The portfolio of AswinKumar TS",
+  metadataBase: new URL(siteConfig.url),
+  title: `${siteConfig.name} | ${siteConfig.role}`,
+  description: siteConfig.summary,
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.role}`,
+    description: siteConfig.summary,
+    url: siteConfig.url,
+    siteName: `${siteConfig.name}'s Portfolio`,
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {

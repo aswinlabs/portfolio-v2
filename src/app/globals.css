@@ -581,3 +581,13 @@ body {
   85% { background-color: #9400d3; }
   100% { background-color: #ff0000; }
 }
+
+@keyframes spidey-swing {
+  0% {
+    transform: rotate(-6deg);
+  }
+  100% {
+    transform: rotate(6deg);
+  }
+}
+

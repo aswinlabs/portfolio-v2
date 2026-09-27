@@ -248,7 +248,7 @@ export async function POST(request: NextRequest) {
     220;
 
   let response: Response;
-  let responseModel = "llama-3.1-8b-instant";
+  let responseModel = "openai/gpt-oss-20b";
 
   const constructMessages = () => [
     { role: "system", content: finalSystemPrompt },
@@ -259,7 +259,7 @@ export async function POST(request: NextRequest) {
   ];
 
   if (openRouterKey) {
-    const model = process.env.OPENROUTER_MODEL || "meta-llama/llama-3.1-8b-instant";
+    const model = process.env.OPENROUTER_MODEL || "openai/gpt-oss-20b";
     responseModel = model;
     response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
