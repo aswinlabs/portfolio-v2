@@ -35,6 +35,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid form submission." }, { status: 400 });
   }
 
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return NextResponse.json({ error: "Invalid form submission." }, { status: 400 });
+  }
+
   const name = readField(payload.name, 80);
   const email = readField(payload.email, 254);
   const message = readField(payload.message, 4000);
@@ -62,6 +66,12 @@ export async function POST(request: NextRequest) {
   );
 
   if (!turnstileSecret || !resendApiKey || !from || expectedHostnames.size === 0 || siteConfig.email.includes("replace-with")) {
+    console.error("Contact configuration missing", {
+      turnstileSecretConfigured: Boolean(turnstileSecret),
+      resendKeyConfigured: Boolean(resendApiKey),
+      senderConfigured: Boolean(from),
+      hostnamesConfigured: expectedHostnames.size > 0,
+    });
     return NextResponse.json(
       { error: "The contact form is not configured yet. Please use another contact option." },
       { status: 503 }
@@ -109,8 +119,22 @@ export async function POST(request: NextRequest) {
       html: `<h2>Portfolio enquiry</h2><p><strong>Name:</strong> ${escapeHtml(name)}</p><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Message:</strong></p><p>${escapeHtml(message).replace(/\n/g, "<br />")}</p>`,
     });
 
-    if (result.error) throw new Error(result.error.message);
-  } catch {
+    if (result.error) {
+      console.error("Resend rejected contact email", {
+        name: result.error.name,
+        status: result.error.statusCode,
+      });
+      return NextResponse.json(
+        { error: "Message delivery is temporarily unavailable. Please use the email link to contact Aswin." },
+        { status: [401, 403].includes(result.error.statusCode ?? 0) ? 503 : 502 }
+      );
+    }
+
+    if (!result.data?.id) throw new Error("Missing email confirmation");
+  } catch (error) {
+    console.error("Contact email request failed", {
+      name: error instanceof Error ? error.name : "UnknownError",
+    });
     return NextResponse.json({ error: "Message delivery failed. Please try again later." }, { status: 502 });
   }
 

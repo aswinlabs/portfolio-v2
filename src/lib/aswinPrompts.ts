@@ -6,7 +6,7 @@ export const ASSISTANT_SCAN_OUTPUT = [
   "",
   "Virtual Aswin Memory — now loading...",
   "",
-  "Model: openai/gpt-oss-20b",
+  "Model: configured server-side",
   "Archive: PUBLIC  |  Private vault: LOCKED  |  Sass level: ELEVATED",
   "",
   "Capabilities (the ones I'm allowed to tell you about):",

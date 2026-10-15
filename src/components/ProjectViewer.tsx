@@ -4,7 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { DesktopItemType } from "@/types";
 
-const ProjectViewer = ({ name, description, image }: DesktopItemType) => {
+const ProjectViewer = ({ name, description }: DesktopItemType) => {
+  const image = description?.image;
   if (!description) return null;
 
   const caseStudyRows = [
@@ -69,7 +70,7 @@ const ProjectViewer = ({ name, description, image }: DesktopItemType) => {
               <span className="text-lg">📸</span>
               <span className="underline">Preview:</span>
             </div>
-            <div className="border-2 border-[var(--foreground)] p-1 cursor-zoom-in">
+            <div className="border-2 border-[var(--foreground)] p-1">
               <div className="relative">
                 <Image
                   src={image}
@@ -78,28 +79,6 @@ const ProjectViewer = ({ name, description, image }: DesktopItemType) => {
                   height={360}
                   className="w-full h-auto border border-[var(--secondary)]"
                 />
-                
-                {image === "/images/txt.webp" && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'linear-gradient(45deg, transparent, transparent 49px, var(--foreground) 49px, var(--foreground) 50px, transparent 50px, transparent)',
-                      backgroundSize: '70px 70px'
-                    }}></div>
-                    
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'linear-gradient(-45deg, transparent, transparent 49px, var(--foreground) 49px, var(--foreground) 50px, transparent 50px, transparent)',
-                      backgroundSize: '70px 70px'
-                    }}></div>
-                    
-                    <div className="z-10 text-foreground bg-background px-4 py-2 rounded-full shadow-md border border-foreground/20">
-                      no image found
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              <div className="text-xs text-center mt-1">
-                Click to enlarge
               </div>
             </div>
           </div>

@@ -11,7 +11,7 @@ const Profile = () => {
       <div className="relative w-20 h-20 mr-4 rounded-full border border-dashed border-gray-500 shrink-0">
         <Image
           src="/images/profile.webp"
-          alt="A"
+          alt="Aswin Kumar"
           fill
           className="object-cover object-top rounded-full"
           sizes="80px"

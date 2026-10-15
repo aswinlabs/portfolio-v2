@@ -66,13 +66,14 @@ const DesktopItem = ({ items, path, viewStyle, onItemClick, activePanel }: Deskt
               "flex flex-col",
             )}
           >
-            <div
+            <button
+              type="button"
               onClick={() => handleItemClick(item)}
               className={clsx(
-                "group flex cursor-pointer transition-all",
+                "group flex cursor-pointer transition-all focus-visible:outline-2 focus-visible:outline-offset-2",
                 viewStyle === "grid"
                   ? "flex-col items-center text-center p-1"
-                  : "flex-row items-center gap-2 p-1",
+                  : "flex-row items-center gap-2 p-1 text-left min-h-11",
                 isItemActive(item) && "bg-blue-100/20"
               )}
             >
@@ -111,7 +112,7 @@ const DesktopItem = ({ items, path, viewStyle, onItemClick, activePanel }: Deskt
                   </span>                    
                 )}
               </span>
-            </div>
+            </button>
 
             {viewStyle === "list" &&
               item.type === "folder" &&

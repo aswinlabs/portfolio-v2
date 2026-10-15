@@ -13,20 +13,14 @@ const BlueScreen=({ onClose }: { onClose: () => void })=> {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(()=>{
-            onClose();
-          },5000)
-         
-          return prev;
-        }
-        return prev + 10;
-      });
+      setProgress((prev) => Math.min(prev + 10, 100));
     }, 300);
+    const timeout = setTimeout(onClose, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, [onClose]);
 
   return (

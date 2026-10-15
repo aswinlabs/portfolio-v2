@@ -110,19 +110,24 @@ export async function POST(request: NextRequest) {
   if (unsafeCommand) {
     return NextResponse.json({
       answer: "request denied.\ni may be experimental, but not suicidal.",
-      model: "local-safety-layer",
       sources: ["Unsafe Command Protection"],
       contextTags: ["safety", unsafeCommand.signature],
     });
   }
 
-  const openRouterKey = process.env.OPENROUTER_API_KEY;
-  const groqKey = process.env.GROQ_API_KEY;
+  const openRouterKey = process.env.OPENROUTER_API_KEY?.trim();
+  const groqKey = process.env.GROQ_API_KEY?.trim();
+  const responseModel = (openRouterKey ? process.env.OPENROUTER_MODEL : process.env.GROQ_MODEL)?.trim();
 
-  if (!openRouterKey && !groqKey) {
+  if ((!openRouterKey && !groqKey) || !responseModel) {
+    console.error("Assistant configuration missing", {
+      provider: openRouterKey ? "OpenRouter" : "Groq",
+      apiKeyConfigured: Boolean(openRouterKey || groqKey),
+      modelConfigured: Boolean(responseModel),
+    });
     return NextResponse.json(
-      { error: "API key is missing. Add OPENROUTER_API_KEY or GROQ_API_KEY to .env.local." },
-      { status: 500 }
+      { error: "Chat is temporarily unavailable. Please contact Aswin using the email link." },
+      { status: 503 }
     );
   }
 
@@ -146,7 +151,6 @@ export async function POST(request: NextRequest) {
     const refusalText = generateOffTopicRefusal();
     return NextResponse.json({
       answer: refusalText,
-      model: "local-behavior-engine",
       sources: ["Off-Topic Protection Layer"],
       fragments: [],
       contextTags: ["off-topic", "refusal"],
@@ -203,7 +207,6 @@ export async function POST(request: NextRequest) {
     const randomSilence = SILENT_RESPONSES[Math.floor(Math.random() * SILENT_RESPONSES.length)];
     return NextResponse.json({
       answer: randomSilence,
-      model: "local-behavior-engine",
       sources: ["System Restraint Subsystem"],
       fragments: [],
       contextTags: ["silence", "restraint"],
@@ -248,7 +251,6 @@ export async function POST(request: NextRequest) {
     220;
 
   let response: Response;
-  let responseModel = "openai/gpt-oss-20b";
 
   const constructMessages = () => [
     { role: "system", content: finalSystemPrompt },
@@ -258,49 +260,64 @@ export async function POST(request: NextRequest) {
     { role: "user", content: query },
   ];
 
-  if (openRouterKey) {
-    const model = process.env.OPENROUTER_MODEL || "openai/gpt-oss-20b";
-    responseModel = model;
-    response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${openRouterKey}`,
-        "HTTP-Referer": "https://aswinos.vercel.app",
-        "X-Title": "AswinOS Virtual Memory",
-      },
-      body: JSON.stringify({
-        model,
-        messages: constructMessages(),
-        max_tokens: maxTokens,
-        temperature: 0.7,
-        top_p: 0.9,
-      }),
-    });
-  } else {
-    responseModel = "llama-3.1-8b-instant";
-    response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${groqKey}`,
-      },
-      body: JSON.stringify({
-        model: "llama-3.1-8b-instant",
-        messages: constructMessages(),
-        max_tokens: maxTokens,
-        temperature: 0.7,
-        top_p: 0.9,
-      }),
-    });
+  try {
+    if (openRouterKey) {
+      response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        signal: AbortSignal.timeout(20000),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${openRouterKey}`,
+          "HTTP-Referer": "https://aswinos.vercel.app",
+          "X-Title": "AswinOS Virtual Memory",
+        },
+        body: JSON.stringify({
+          model: responseModel,
+          messages: constructMessages(),
+          max_tokens: maxTokens,
+          temperature: 0.7,
+          top_p: 0.9,
+        }),
+      });
+    } else {
+      const reasoningEffort = process.env.GROQ_REASONING_EFFORT?.trim();
+      response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        signal: AbortSignal.timeout(20000),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${groqKey}`,
+        },
+        body: JSON.stringify({
+          model: responseModel,
+          messages: constructMessages(),
+          max_completion_tokens: Math.max(maxTokens, 1024),
+          ...(reasoningEffort ? { reasoning_effort: reasoningEffort } : {}),
+          temperature: 0.7,
+          top_p: 0.9,
+        }),
+      });
+    }
+  } catch (error) {
+    const timedOut = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");
+    return NextResponse.json(
+      { error: timedOut
+        ? "The reply took too long. Please try again or contact Aswin using the email link."
+        : "Chat could not connect. Please try again or contact Aswin using the email link." },
+      { status: timedOut ? 504 : 502 }
+    );
   }
 
   const data = (await response.json().catch(() => null)) as GroqResponse | null;
 
   if (!response.ok) {
+    console.error("Assistant provider rejected request", { status: response.status, model: responseModel });
+    const configurationError = [401, 403, 404].includes(response.status);
     return NextResponse.json(
-      { error: data?.error?.message || "Assistant model request failed." },
-      { status: response.status }
+      { error: response.status === 429
+        ? "Chat is busy right now. Please try again shortly or contact Aswin using the email link."
+        : "Chat is temporarily unavailable. Please try again or contact Aswin using the email link." },
+      { status: configurationError ? 503 : response.status === 429 ? 429 : 502 }
     );
   }
 

@@ -245,7 +245,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-geist-sans, Arial, Helvetica, sans-serif);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -581,13 +581,3 @@ body {
   85% { background-color: #9400d3; }
   100% { background-color: #ff0000; }
 }
-
-@keyframes spidey-swing {
-  0% {
-    transform: rotate(-6deg);
-  }
-  100% {
-    transform: rotate(6deg);
-  }
-}
-

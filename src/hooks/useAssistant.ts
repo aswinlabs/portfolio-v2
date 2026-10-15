@@ -799,7 +799,7 @@ export const useAssistant = ({
       const data = (await response.json().catch(() => null)) as AssistantApiResponse | null;
 
       if (!response.ok || !data?.answer) {
-        throw new Error(data?.error || "Assistant API request failed.");
+        throw new Error(data?.error || "Chat is temporarily unavailable. Please try again or use the email link.");
       }
 
       // Synchronize off-topic metrics if server flagged it
@@ -837,7 +837,9 @@ export const useAssistant = ({
       answer = injectMicroRandomness(rawAnswer);
     } catch (error) {
       console.error("Assistant API failed:", error);
-      answer = "MODEL CORE UNREACHABLE\n======================\n\nLooks like the API is taking a break.\nCheck OPENROUTER_API_KEY, free-tier limits, or try again in a moment.\n\nLocal memory shell is still operational though — ask me something simpler.";
+      answer = error instanceof Error && error.name !== "TypeError"
+        ? error.message
+        : "Chat could not connect. Please try again or contact Aswin using the email link.";
     }
 
     const userHistoryMessage: ChatHistoryMessage = { role: "user", content: safeQuery };
