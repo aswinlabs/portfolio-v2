@@ -431,12 +431,12 @@ export default function Home() {
 
       <div className="flex-1 overflow-hidden flex flex-col">
         <div className="grid grid-cols-1 md:grid-cols-13 divide-y md:divide-y-0 md:divide-x divide-dashed divide-gray-500 p-4 h-[calc(100dvh-48px)] overflow-auto">
-          <div className="md:col-span-4 layout-panel md:h-full md:overflow-auto scrollbar-hidden">
+          <div className="md:col-span-4 layout-panel h-full overflow-auto scrollbar-hidden">
             <ProfileTab shouldStopMusic={partyMode} musicCommand={musicCommand} />
           </div>
           <div className={clsx(
   activePanel ? "md:col-span-5" : "md:col-span-9",
-  "md:h-full md:overflow-auto flex flex-col scrollbar-hidden"
+  "h-full overflow-auto flex flex-col scrollbar-hidden"
 )}>
 
             <Desktop 
