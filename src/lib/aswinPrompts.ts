@@ -142,7 +142,7 @@ export const getAswinClaimReply = (claimCount: number): string => {
 // ─── Strict Off-Topic Guard Patterns ─────────────────────────────────────────
 export const OFF_TOPIC_PATTERNS = [
   // General knowledge
-  /\b(what is|who is|explain|define|history of|how does|why does|when did|where is)\b.*(capital|president|war|country|planet|element|chemical|math|equation|formula|recipe|cook|weather|stock|cryptocurrency|bitcoin|news|sport|football|cricket|movie|film|actor|celebrity|singer|song)/i,
+  /\b(what is|who is|explain|define|history of|how does|why does|when did|where is|who won)\b.*(capital|president|war|country|planet|element|chemical|math|equation|formula|recipe|cook|weather|stock|cryptocurrency|bitcoin|news|sport|football|cricket|world cup|fifa|olympics|movie|film|actor|celebrity|singer|song)/i,
   // Other people / companies
   /\b(elon musk|mark zuckerberg|jeff bezos|steve jobs|bill gates|openai|google|apple|meta|microsoft|amazon|tesla)\b/i,
   // Coding help unrelated to Aswin

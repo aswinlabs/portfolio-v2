@@ -145,9 +145,8 @@ export async function POST(request: NextRequest) {
 
   // 1. OFF-TOPIC CHECK WITH RAG BACKUP
   const isOffTopicQuery = OFF_TOPIC_PATTERNS.some((pattern) => pattern.test(normalizedQuery));
-  const hasNoContext = !retrieval.contextTags || retrieval.contextTags.length === 0;
 
-  if (isOffTopicQuery && hasNoContext) {
+  if (isOffTopicQuery) {
     const refusalText = generateOffTopicRefusal();
     return NextResponse.json({
       answer: refusalText,
@@ -312,12 +311,19 @@ export async function POST(request: NextRequest) {
 
   if (!response.ok) {
     console.error("Assistant provider rejected request", { status: response.status, model: responseModel });
+    if (response.status === 429) {
+      return NextResponse.json({
+        answer: "My neural memory bus is momentarily throttled by burst traffic. Give me 3 seconds to cool down my heatsink, or ask another project question.",
+        sources: ["Provider Throttle Buffer"],
+        fragments: [],
+        contextTags: ["rate-limited", "buffer"],
+      });
+    }
+
     const configurationError = [401, 403, 404].includes(response.status);
     return NextResponse.json(
-      { error: response.status === 429
-        ? "Chat is busy right now. Please try again shortly or contact Aswin using the email link."
-        : "Chat is temporarily unavailable. Please try again or contact Aswin using the email link." },
-      { status: configurationError ? 503 : response.status === 429 ? 429 : 502 }
+      { error: "Chat is temporarily unavailable. Please try again or contact Aswin using the email link." },
+      { status: configurationError ? 503 : 502 }
     );
   }
 
