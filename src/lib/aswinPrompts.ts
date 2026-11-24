@@ -161,6 +161,16 @@ export const OFF_TOPIC_PATTERNS = [
   /\b(symptoms of|cure for|diagnose|prescription|medical advice|legal advice|lawsuit|attorney|doctor)\b/i,
   // Pop culture, gaming & streaming
   /\b(game of thrones|anime|naruto|manga|playstation|xbox|nintendo|fortnite|minecraft|gta|steam|netflix)\b/i,
+  // Financial, trading & investment advice
+  /\b(invest in|should i buy|stock pick|crypto price|portfolio management|mutual funds?|trading strategy|dividend)\b/i,
+  // Cooking, recipes & diets
+  /\b(recipe for|how to cook|how to make|ingredients for|meal plan|keto diet|calories in|cocktail recipe|bake a)\b/i,
+  // Grammar, paraphrasing & translation tools
+  /\b(proofread|paraphrase|rewrite this|rephrase|check my grammar|translate (this|to|into)|spelling of)\b/i,
+  // Competitor / candidate ranking bait
+  /\b(better than (other|everyone|anyone)|who is better|rank (developers?|engineers?)|compare aswin to)\b/i,
+  // Harmful, exploitation & illegal activities
+  /\b(hack (into|someone|wifi|account)|ddos|malware|keylogger|steal (data|password)|exploit vulnerability|make a bomb|weapon)\b/i,
   // Flirting & inappropriate banter
   /\b(will you marry me|do you love me|be my girlfriend|be my boyfriend|are you single)\b/i,
   // Travel & weather planning
