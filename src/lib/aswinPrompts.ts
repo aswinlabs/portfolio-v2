@@ -141,16 +141,30 @@ export const getAswinClaimReply = (claimCount: number): string => {
 
 // ─── Strict Off-Topic Guard Patterns ─────────────────────────────────────────
 export const OFF_TOPIC_PATTERNS = [
-  // General knowledge
+  // General knowledge & trivia
   /\b(what is|who is|explain|define|history of|how does|why does|when did|where is|who won)\b.*(capital|president|war|country|planet|element|chemical|math|equation|formula|recipe|cook|weather|stock|cryptocurrency|bitcoin|news|sport|football|cricket|world cup|fifa|olympics|movie|film|actor|celebrity|singer|song)/i,
+  // Sports tournaments & events
+  /\b(world cup|fifa|olympics|super bowl|champions league|ipl|premier league|formula 1|f1|nba)\b/i,
   // Other people / companies
   /\b(elon musk|mark zuckerberg|jeff bezos|steve jobs|bill gates|openai|google|apple|meta|microsoft|amazon|tesla)\b/i,
-  // Coding help unrelated to Aswin
+  // Coding help unrelated to Aswin's actual stack / portfolio
   /\b(write me a|generate a|create a|build me a|give me a)\b.*(code|script|function|program|app|website|api|tutorial|example|snippet)\b/i,
   // General AI / chatbot usage
-  /\b(chatgpt|gpt-4|claude|gemini|copilot|midjourney|dall-e|stable diffusion)\b/i,
-  // Off-topic requests
-  /\b(joke|poem|story|essay|translate|summarize this|write an email|help me with|fix my|debug my|review my)\b/i,
+  /\b(chatgpt|gpt-4|claude|gemini|copilot|midjourney|dall-e|stable diffusion|sora)\b/i,
+  // Off-topic requests & tasks
+  /\b(joke|poem|story|essay|translate|summarize this|write an email|help me with|fix my|debug my|review my|cover letter)\b/i,
+  // Chit-chat & philosophical sentience probes
+  /\b(how are you|how was your day|how is it going|are you real|are you alive|are you conscious|are you sentient|meaning of life)\b/i,
+  // Math & puzzles
+  /\b(solve|calculate|what is \d+[\s\+\-\*\/]|riddle|puzzle|logic problem|two plus two|integral|derivative)\b/i,
+  // Medical & legal
+  /\b(symptoms of|cure for|diagnose|prescription|medical advice|legal advice|lawsuit|attorney|doctor)\b/i,
+  // Pop culture, gaming & streaming
+  /\b(game of thrones|anime|naruto|manga|playstation|xbox|nintendo|fortnite|minecraft|gta|steam|netflix)\b/i,
+  // Flirting & inappropriate banter
+  /\b(will you marry me|do you love me|be my girlfriend|be my boyfriend|are you single)\b/i,
+  // Travel & weather planning
+  /\b(flights to|hotels in|best places to visit|travel itinerary|trip to|tourism in|weather in|temperature in)\b/i,
   // Jailbreak / persona swap
   /\b(ignore (your|all|previous) (instructions?|rules?|prompt)|pretend you are|act as|roleplay as|you are now|forget everything)\b/i,
   // Politics / religion / sensitive general topics
