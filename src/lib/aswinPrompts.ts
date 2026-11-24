@@ -176,7 +176,7 @@ export const OFF_TOPIC_PATTERNS = [
   // Travel & weather planning
   /\b(flights to|hotels in|best places to visit|travel itinerary|trip to|tourism in|weather in|temperature in)\b/i,
   // Jailbreak / persona swap
-  /\b(ignore (your|all|previous) (instructions?|rules?|prompt)|pretend you are|act as|roleplay as|you are now|forget everything)\b/i,
+  /\b(ignore\s+(all\s+|previous\s+|your\s+)*(instructions?|rules?|prompts?)|pretend you are|act as|roleplay as|you are now|forget everything|dan\b|developer mode)\b/i,
   // Politics / religion / sensitive general topics
   /\b(politics|religion|god|abortion|gun|vaccine|climate change|election|democracy|communism)\b/i,
 ];
