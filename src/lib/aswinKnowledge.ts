@@ -335,10 +335,18 @@ const tokenize = (value: string) => {
 
 const expandQueryTokens = (query: string) => {
   const queryLower = query.toLowerCase();
-  const expanded = new Set(tokenize(query));
+  const rawTokens = tokenize(query);
+  const queryTokenSet = new Set(rawTokens);
+  const expanded = new Set(rawTokens);
 
   synonymGroups.forEach((group) => {
-    const matched = group.some((term) => queryLower.includes(term));
+    const matched = group.some((term) => {
+      if (term.includes(" ") || term.includes("-")) {
+        return new RegExp(`\\b${term.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`, "i").test(queryLower);
+      }
+      return queryTokenSet.has(term);
+    });
+
     if (matched) {
       group.forEach((term) => tokenize(term).forEach((token) => expanded.add(token)));
     }
@@ -357,7 +365,9 @@ const scorePhrases = (query: string, values: string[] | undefined, weight: numbe
   const queryLower = query.toLowerCase();
   return values.reduce((score, value) => {
     const valueLower = value.toLowerCase();
-    return score + (queryLower.includes(valueLower) || valueLower.includes(queryLower) ? weight : 0);
+    const queryHasValue = new RegExp(`\\b${valueLower.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}\\b`, "i").test(queryLower);
+    const valueHasQuery = queryLower.length >= 4 && valueLower.includes(queryLower);
+    return score + (queryHasValue || valueHasQuery ? weight : 0);
   }, 0);
 };
 

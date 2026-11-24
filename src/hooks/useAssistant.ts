@@ -21,11 +21,14 @@ type UseAssistantProps = {
 const normalizeText = (value: string) => 
   value.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 
-const isRecruiterIntent = (normalizedQuery: string) => {
-  return (
-    confirmationWords.has(normalizedQuery) ||
-    /\b(recruiter|hiring|hire|talent|interviewer|reviewing)\b/.test(normalizedQuery)
-  );
+const isRecruiterIntent = (normalizedQuery: string, mode?: AssistantMode) => {
+  if (mode === "intro") {
+    return (
+      confirmationWords.has(normalizedQuery) ||
+      /\b(recruiter|hiring|hire|talent|interviewer|reviewing)\b/.test(normalizedQuery)
+    );
+  }
+  return /\b(recruiter|hiring|hire|talent|interviewer|reviewing)\b/.test(normalizedQuery);
 };
 
 const isExplorerIntent = (normalizedQuery: string) => {
@@ -633,7 +636,7 @@ export const useAssistant = ({
     // awaitingSelection is already declared in scope
     const unsafeCommand = detectUnsafeCommand(safeQuery);
 
-    if (assistantMode === "intro" && isRecruiterIntent(normalizedQuery)) {
+    if (assistantMode === "intro" && isRecruiterIntent(normalizedQuery, "intro")) {
       await runRecruiterBoot();
       return;
     }
@@ -754,7 +757,7 @@ export const useAssistant = ({
       }
 
       // 1. Calculate next state variables dynamically (preliminary before server classification)
-      const isRecruiter = isRecruiterIntent(normalizedQuery);
+      const isRecruiter = isRecruiterIntent(normalizedQuery, assistantMode);
       const isRestrictedSector = /\b(secrets?|dat|vault|hack|password|doppelganger|admin|bypass|override)\b/.test(normalizedQuery);
       const isGoodQuestion = /\b(architecture|supabase|cloudflare|react|typescript|routing|serverless|nextjs|database|schema|api|logic|backend|frontend)\b/.test(normalizedQuery);
       

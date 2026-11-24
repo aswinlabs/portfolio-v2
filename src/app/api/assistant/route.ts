@@ -159,11 +159,11 @@ export async function POST(request: NextRequest) {
   // 2. INTENT CLASSIFICATION
   let intent: "recruiter" | "restricted" | "technical" | "filesystem" | "suspicious" | "casual" = "casual";
 
-  if (/\b(recruiter|hiring|hire|talent|interviewer|reviewing|evaluate|resume|job|experion|work)\b/.test(normalizedQuery)) {
+  if (/\b(recruiter|hiring|hire|talent|interviewer|reviewing|evaluate|resume|cv|job|experion|career|employment)\b|(\b(his|past|previous|recent|what)\s+work\b)|\b(for\s+work|open\s+to\s+work|work\s+with\s+us|work\s+(history|experience))\b/.test(normalizedQuery)) {
     intent = "recruiter";
   } else if (/\b(secrets?|dat|vault|hack|password|doppelganger|admin|bypass|override)\b/.test(normalizedQuery)) {
     intent = "restricted";
-  } else if (/\b(architecture|supabase|cloudflare|react|typescript|routing|serverless|nextjs|database|schema|api|logic|backend|frontend|css|flexbox|fiber|gorm|kotlin|native)\b/.test(normalizedQuery)) {
+  } else if (/\b(architecture|supabase|cloudflare|react|typescript|routing|serverless|nextjs|database|schema|api|logic|backend|frontend|css|flexbox|fiber|gorm|kotlin|native)\b|\bhow\s+(does|do|did)\s+(this|it|assistant|the\s+\w+|your\s+\w+)\s+(work|function)\b|\bhow\s+it\s+works\b/.test(normalizedQuery)) {
     intent = "technical";
   } else if (/\b(file|dir|folder|void|manifest|structure|index|disk|cache|path)\b/.test(normalizedQuery)) {
     intent = "filesystem";
